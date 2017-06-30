@@ -68,6 +68,18 @@ monitors:
     - sls: ceph.mon
     - failhard: True
 
+mgr auth:
+  salt.state:
+    - tgt: {{ salt['pillar.get']('master_minion') }}
+    - sls: ceph.mgr.auth
+
+mgrs:
+  salt.state:
+    - tgt: 'I@roles:mgr and I@cluster:ceph'
+    - tgt_type: compound
+    - sls: ceph.mgr
+    - failhard: True
+
 setup ceph exporter:
   salt.state:
     - tgt: {{ salt['pillar.get']('master_minion') }}
