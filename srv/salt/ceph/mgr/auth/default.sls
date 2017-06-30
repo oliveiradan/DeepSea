@@ -9,7 +9,7 @@ prevent empty rendering:
 
 auth {{ keyring_file }}:
   cmd.run:
-    - name: "ceph auth add {{ client }} -i {{ keyring_file }}"
+    - name: "ceph auth get {{ client }} >/dev/null 2>&1 && ceph auth del {{ client }} >/dev/null 2>&1 ; ceph auth add {{ client }} -i {{ keyring_file }}"
 
 {% endfor %}
 
